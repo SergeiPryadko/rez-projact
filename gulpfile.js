@@ -55,11 +55,6 @@ gulp.task('html', function() {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('video', function() {
-    return gulp.src('src/video/**/*.*')
-        .pipe(gulp.dest('./build/video/'))
-});
-
 gulp.task('sass', function() {
     return gulp.src('src/sass/*.scss')
         .pipe(plumber({errorHandler:
@@ -119,24 +114,15 @@ gulp.task('image', function () {
         .pipe(reload({stream: true}));
 });
 
-/* Task for folder Fonts */
-gulp.task('fonts', function() {
-    return gulp.src('src/fonts/**/*.*')
-        .pipe(newer('build/fonts/'))
-        .pipe(gulp.dest('build/fonts/'))
-});
-
 gulp.task('watch', function() {
     gulp.watch('src/**/*.html', ['html']);
     gulp.watch('src/sass/*.scss', ['sass']);
-    gulp.watch('src/video/**/*.*', ['video']);
     gulp.watch('src/img/**/*.*', ['image']);
     gulp.watch('src/js/*.js', ['js']);
-    gulp.watch('src/fonts/**/*.*', ['fonts']);
     gulp.watch('src/vendor/**/*.*', ['vendor']);
 });
 
-gulp.task('build', ['html', 'sass', 'video', 'js', 'fonts', 'image', 'vendor']);
+gulp.task('build', ['html', 'sass', 'js', 'image', 'vendor']);
 gulp.task('default', ['build', 'webserver', 'watch']);
 
 /* Task Clean (delete folder [build/]) */
