@@ -19,12 +19,12 @@ encoding:       UTF-8
 exclude:
   - .git/
   - .github/
-  - assets/scss/
+  - assets/sass/
   - build/
   - js/
   - node_modules/
   - nuget/
-  - scss/
+  - sass/
   - vendor/
   - CODE_OF_CONDUCT.md
   - composer.json

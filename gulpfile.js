@@ -55,20 +55,13 @@ gulp.task('html', function() {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('css', function() {
-    return gulp.src('build/css/main.css')
-        .pipe(plumber())
-        .pipe(gulpminifycss())
-        .pipe(rename('main.min.css'))
-        .pipe(gulp.dest('./build/css'))
-});
 gulp.task('video', function() {
     return gulp.src('src/video/**/*.*')
         .pipe(gulp.dest('./build/video/'))
 });
 
 gulp.task('sass', function() {
-    return gulp.src('src/sass/**/*.scss')
+    return gulp.src('src/sass/*.scss')
         .pipe(plumber({errorHandler:
                 notify.onError(function (err) {
                     return {
@@ -88,7 +81,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('js', function() {
-    gulp.src('src/js/main.js')
+    gulp.src('src/js/*.js')
         .pipe(rigger())
         .pipe(plumber({errorHandler:
                 notify.onError(function (err) {
@@ -104,6 +97,7 @@ gulp.task('js', function() {
         .pipe(gulp.dest('build/js'))
         .pipe(reload({stream: true}))
 });
+
 
 /* Task for folder Vendor */
 gulp.task('vendor', function() {
@@ -134,16 +128,15 @@ gulp.task('fonts', function() {
 
 gulp.task('watch', function() {
     gulp.watch('src/**/*.html', ['html']);
-    gulp.watch('src/sass/**/*.scss', ['sass']);
-    gulp.watch('build/css/main.css', ['css']);
+    gulp.watch('src/sass/*.scss', ['sass']);
     gulp.watch('src/video/**/*.*', ['video']);
     gulp.watch('src/img/**/*.*', ['image']);
-    gulp.watch('src/js/**/*.js', ['js']);
+    gulp.watch('src/js/*.js', ['js']);
     gulp.watch('src/fonts/**/*.*', ['fonts']);
     gulp.watch('src/vendor/**/*.*', ['vendor']);
 });
 
-gulp.task('build', ['html', 'sass', 'css', 'video', 'js', 'fonts', 'image', 'vendor']);
+gulp.task('build', ['html', 'sass', 'video', 'js', 'fonts', 'image', 'vendor']);
 gulp.task('default', ['build', 'webserver', 'watch']);
 
 /* Task Clean (delete folder [build/]) */
