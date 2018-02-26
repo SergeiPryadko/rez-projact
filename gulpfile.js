@@ -55,6 +55,14 @@ gulp.task('html', function() {
         .pipe(reload({stream: true}));
 });
 
+gulp.task('css', function() {
+    return gulp.src('build/css/*.css')
+        .pipe(plumber())
+        .pipe(gulpminifycss())
+        .pipe(rename('main.min.css'))
+        .pipe(gulp.dest('./build/css'))
+});
+
 gulp.task('sass', function() {
     return gulp.src('src/sass/*.scss')
         .pipe(plumber({errorHandler:
@@ -117,12 +125,13 @@ gulp.task('image', function () {
 gulp.task('watch', function() {
     gulp.watch('src/**/*.html', ['html']);
     gulp.watch('src/sass/*.scss', ['sass']);
+    gulp.watch('build/css/main.css', ['css']);
     gulp.watch('src/img/**/*.*', ['image']);
     gulp.watch('src/js/*.js', ['js']);
     gulp.watch('src/vendor/**/*.*', ['vendor']);
 });
 
-gulp.task('build', ['html', 'sass', 'js', 'image', 'vendor']);
+gulp.task('build', ['html', 'sass', 'css', 'js', 'image', 'vendor']);
 gulp.task('default', ['build', 'webserver', 'watch']);
 
 /* Task Clean (delete folder [build/]) */
